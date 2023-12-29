@@ -1,0 +1,84 @@
+[project]
+name = "conv_html_to_markdown"
+version = "0.1.0"
+description = "Convert HTML to Markdown using Regex, BeautifulSoup4, and filter useless content with Jina Embeddings."
+authors = [
+    {name = "Daethyra", email = "109057945+Daethyra@users.noreply.github.com"},
+]
+dependencies = [
+    "beautifulsoup4>=4.12.2",
+    "markdownify>=0.11.6",
+    "transformers>=4.36.2",
+    "torch>=2.1.2",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+package-type = "library"
+index = "https://pypi.org/simple"
+
+[tool.pdm.dev-dependencies]
+black = [
+    "black>=23.11.0",
+]
+flake8 = [
+    "flake8>=6.1.0",
+]
+[tool.black]
+line-length = 88  # Adjust this to your preferred line length
+include = '\.pyi?$'  # Include only Python files
+exclude = '''(
+    /(
+        \.git
+        | \.hg
+        | \.mypy_cache
+        | \.tox
+        | \.venv
+        | _build
+        | buck-out
+        | build
+        | dist
+    )/
+    | /( 
+        \.eggs
+        | \.pytest_cache
+        | \.serverless
+        | \.terraform
+        | \.vagrant
+        | \.vscode
+    )/
+)'''
+
+[tool.flake8]
+exclude = [
+    # Exclude files that black formats
+    ".venv/",
+    ".git/",
+    ".mypy_cache/",
+    ".tox/",
+    ".venv/",
+    "_build/",
+    "buck-out/",
+    "build/",
+    "dist/"
+]
+# Most common: [E203, E501, W503] | Specify other error codes to ignore (optional)
+ignore = [
+    "E203",
+    "E501",
+    "W503",
+    "E231",
+    "E701",
+    "E702",
+    "E711",
+    "E712",
+    "E722",
+    "E731"
+]
