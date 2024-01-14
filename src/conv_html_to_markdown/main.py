@@ -32,15 +32,19 @@ def process_dataset_chunk(chunk):
         return ""
 
 
-def main():
+def main(pattern: str = "output*.json", 
+         chunk_size: int = 512, 
+         max_threads: int = 15, 
+         output_file_name: str = "gpt-crawler-curated_markdown.md") -> None:
     """
     Main function to load, process, and save the dataset.
+
+    :param pattern: Pattern to match JSON files.
+    :param chunk_size: Size of chunks to split the dataset into.
+    :param max_threads: Maximum number of threads to use.
+    :param output_file_name: Name of the output file.
     """
     logging.basicConfig(level=logging.INFO)
-    pattern = "output*.json"  # Pattern to match JSON files
-    chunk_size = 512  # Adjust chunk size as needed
-    max_threads = 15  # Adjust the maximum number of threads as needed
-    output_file_name = "gpt-crawler-curated_markdown.md"
 
     try:
         original_data = load_json_files(pattern)
