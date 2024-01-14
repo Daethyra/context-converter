@@ -14,6 +14,7 @@ Functions:
 
 import logging
 from typing import List
+import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from typing import List
 from converter import HTMLToMarkdownConverter
@@ -33,7 +34,7 @@ def process_dataset_chunk(chunk):
         return ""
 
 
-def main(pattern: str = "output*.json", 
+async def main(pattern: str = "output*.json", 
          chunk_size: int = 512, 
          max_threads: int = 15, 
          output_file_name: str = "gpt-crawler-curated_markdown.md") -> None:
@@ -48,11 +49,18 @@ def main(pattern: str = "output*.json",
     logging.basicConfig(level=logging.INFO)
 
     try:
-        original_data = load_json_files(pattern)
+        original_data = await load_json_files(pattern)
+        
         chunks = list(chunk_dataset(original_data, chunk_size))
-        formatted_contents = process_and_collect_data(chunks, max_threads)
-        save_output_in_chunks(output_file_name, formatted_contents)
-        logging.info("Conversion process successful. Exiting program.")
+        
+        for chunk in chunks:
+            try:
+                content = await process_dataset_chunk(chunk)
+                await save_output_in_chunks(output_file_name, content)
+                logging.info("Conversion process successful. Exiting program.")
+            except Exception as e:
+                logging.error("An error occurred while processing a chunk: %s", e)
+                # Handle error or save progress here
     except Exception as e:
         logging.error("An error occurred in the main function: %s", e)
 
@@ -74,4 +82,4 @@ def process_and_collect_data(chunks: List[Chunk], max_threads: int) -> List[Resu
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
