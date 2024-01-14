@@ -72,23 +72,23 @@ class HTMLToMarkdownConverter:
                 cleaned_lines.append(lines[i])
         return "\n".join(cleaned_lines)
 
-    def convert(self, html_content):
-        """
-        Converts HTML content to Markdown format.
-        """
-        try:
-            curated_html = self._curate_content(html_content)
-            markdown_content = md(
-                curated_html,
-                strip_tags=self.strip_tags,
-                convert_links=self.convert_links,
-            ).strip()
-            lines = markdown_content.split("\n")
-            embeddings = self._process_embeddings(lines)
-            return self._remove_redundant_data(embeddings, lines)
-        except Exception as e:
-            logging.error("Error during conversion: %s", e)
-            raise
+async def convert(self, html_content):
+    """
+    Converts HTML content to Markdown format.
+    """
+    try:
+        curated_html = await self._curate_content(html_content)
+        markdown_content = await md(
+            curated_html,
+            strip_tags=self.strip_tags,
+            convert_links=self.convert_links,
+        ).strip()
+        lines = markdown_content.split("\n")
+        embeddings = await self._process_embeddings(lines)
+        return await self._remove_redundant_data(embeddings, lines)
+    except Exception as e:
+        logging.error("Error during conversion: %s", e)
+        raise
 
     def _curate_content(self, html):
         """
