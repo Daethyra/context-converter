@@ -13,6 +13,7 @@ Functions:
 
 
 import logging
+from typing import List
 from concurrent.futures import ThreadPoolExecutor
 from typing import List
 from converter import HTMLToMarkdownConverter
