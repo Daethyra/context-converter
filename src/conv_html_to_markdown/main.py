@@ -15,7 +15,6 @@ Functions:
 import logging
 from typing import List
 import asyncio
-from concurrent.futures import ThreadPoolExecutor
 from typing import List
 from converter import HTMLToMarkdownConverter
 from formatter import DatasetFormatter
@@ -63,22 +62,6 @@ async def main(pattern: str = "output*.json",
                 # Handle error or save progress here
     except Exception as e:
         logging.error("An error occurred in the main function: %s", e)
-
-
-def process_and_collect_data(chunks: List[Chunk], max_threads: int) -> List[Result]:
-    """
-    Process the data chunks in parallel and collect the results.
-
-    Args:
-        chunks (List[Chunk]): The list of data chunks to be processed.
-        max_threads (int): The maximum number of threads to be used for parallel processing.
-
-    Returns:
-        List[Result]: The list of results obtained from processing each chunk.
-    """
-    logging.info("Processing and saving dataset in chunks.")
-    with ThreadPoolExecutor(max_workers=max_threads) as executor:
-        return [result for result in executor.map(process_dataset_chunk, chunks)]
 
 
 if __name__ == "__main__":
