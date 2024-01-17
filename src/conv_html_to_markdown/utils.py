@@ -3,8 +3,8 @@ import json
 import logging
 import aiofiles
 import asyncio
-from converter import HTMLToMarkdownConverter
-from formatter import DatasetFormatter
+from .converter import HTMLToMarkdownConverter
+from .formatter import DatasetFormatter
 
 
 async def load_json_files(pattern):

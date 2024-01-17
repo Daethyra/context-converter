@@ -15,9 +15,9 @@ import logging
 from typing import List
 import asyncio
 from typing import List
-from converter import HTMLToMarkdownConverter
-from formatter import DatasetFormatter
-from utils import load_json_files, save_output_in_chunks, chunk_dataset
+from .converter import HTMLToMarkdownConverter
+from .formatter import DatasetFormatter
+from .utils import load_json_files, save_output_in_chunks, chunk_dataset
 
 
 def process_dataset_chunk(chunk):
