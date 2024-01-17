@@ -59,5 +59,7 @@ class DatasetFormatter:
         Formats the entire dataset.
         Formats each entry in the dataset and joins them with newlines.
         """
-        formatted_entries = await asyncio.gather(*(self.format_entry(entry) for entry in data))
+        formatted_entries = await asyncio.gather(
+            *(self.format_entry(entry) for entry in data)
+        )
         return "\n\n".join(formatted_entries)

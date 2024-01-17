@@ -32,9 +32,11 @@ def process_dataset_chunk(chunk):
         return ""
 
 
-async def main(pattern: str = "output*.json", 
-         chunk_size: int = 512,
-         output_file_name: str = "gpt-crawler-curated_markdown.md") -> None:
+async def main(
+    pattern: str = "output*.json",
+    chunk_size: int = 512,
+    output_file_name: str = "gpt-crawler-curated_markdown.md",
+) -> None:
     """
     Main function to load, process, and save the dataset.
 
@@ -46,9 +48,9 @@ async def main(pattern: str = "output*.json",
 
     try:
         original_data = await load_json_files(pattern)
-        
+
         chunks = list(chunk_dataset(original_data, chunk_size))
-        
+
         for chunk in chunks:
             try:
                 content = await process_dataset_chunk(chunk)
