@@ -23,16 +23,8 @@ jobs:
       uses: pdm-project/setup-pdm@v3
       with:
         python-version: "3.10"
-      #  cache: true
-    
-    - name: Install dependencies
-      run: pdm install
+        cache: true
 
-    - name: Update dependencies
-      run: pdm update -vv
-
-    - name: Lock dependencies
-      run: pdm lock -vv
 
     - name: Build package
       run: pdm build -vv
