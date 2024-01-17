@@ -4,8 +4,27 @@
 [metadata]
 groups = ["default"]
 strategy = ["cross_platform"]
-lock_version = "4.4"
-content_hash = "sha256:ff0a9b652ff16180ecb75322bd6b168582b57b77242fc08ac99984a9dcfbbc97"
+lock_version = "4.4.1"
+content_hash = "sha256:acb73225987737b537bc7cc3892b051b83bafcaf48a57cbeefe187a623336f88"
+
+[[package]]
+name = "aiofiles"
+version = "23.2.1"
+requires_python = ">=3.7"
+summary = "File support for asyncio."
+files = [
+    {file = "aiofiles-23.2.1-py3-none-any.whl", hash = "sha256:19297512c647d4b27a2cf7c34caa7e405c0d60b5560618a29a9fe027b18b0107"},
+    {file = "aiofiles-23.2.1.tar.gz", hash = "sha256:84ec2218d8419404abcb9f0c02df3f34c6e0a68ed41072acfb1cef5cbc29051a"},
+]
+
+[[package]]
+name = "asyncio"
+version = "3.4.3"
+summary = "reference implementation of PEP 3156"
+files = [
+    {file = "asyncio-3.4.3-py3-none-any.whl", hash = "sha256:c4d18b22701821de07bd6aea8b53d21449ec0ec5680645e5317062ea21817d2d"},
+    {file = "asyncio-3.4.3.tar.gz", hash = "sha256:83360ff8bc97980e4ff25c964c7bd3923d333d177aa4f7fb736b019f26c7cb41"},
+]
 
 [[package]]
 name = "beautifulsoup4"

@@ -38,7 +38,7 @@ class DatasetFormatter:
             url = entry.get("url", "")
             html_content = entry.get("html", "")
             logging.info("Formatted entry: %s", title)
-            markdown_content = await self.converter.convert(html_content)
+            markdown_content = self.converter.convert(html_content)
             return self.structure_markdown(title, url, markdown_content)
         except Exception as e:
             logging.error("Error formatting entry: %s", e)
@@ -54,9 +54,10 @@ class DatasetFormatter:
         )  # Remove leading and trailing whitespace/newlines
         return structured_content
 
-    def format_dataset(self, data):
+    async def format_dataset(self, data):
         """
         Formats the entire dataset.
         Formats each entry in the dataset and joins them with newlines.
         """
-        return "\n\n".join(self.format_entry(entry) for entry in data)
+        formatted_entries = await asyncio.gather(*(self.format_entry(entry) for entry in data))
+        return "\n\n".join(formatted_entries)

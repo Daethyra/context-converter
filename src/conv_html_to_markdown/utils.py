@@ -29,7 +29,7 @@ async def save_output_in_chunks(file_path, contents):
     """
     try:
         async with aiofiles.open(file_path, "a", encoding="utf-8") as file:
-            await file.write(content)
+            await file.write(contents)
             await file.flush()
             logging.info("Flushed file content: %s", file_path)
     except Exception as e:
