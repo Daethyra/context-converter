@@ -16,6 +16,10 @@ jobs:
     permissions:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
     # Step to set up Python
     - name: Set up Python
       uses: actions/setup-python@v2
