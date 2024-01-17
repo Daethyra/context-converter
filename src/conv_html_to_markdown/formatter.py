@@ -8,7 +8,7 @@ Classes:
 """
 
 import asyncio
-from converter import HTMLToMarkdownConverter
+from .converter import HTMLToMarkdownConverter
 import logging
 
 
