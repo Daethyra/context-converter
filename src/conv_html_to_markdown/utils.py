@@ -1,35 +1,37 @@
 import glob
 import json
 import logging
+import aiofiles
+import asyncio
 from converter import HTMLToMarkdownConverter
 from formatter import DatasetFormatter
 
 
-def load_json_files(pattern):
+async def load_json_files(pattern):
     """
     Load data from multiple JSON files matching a pattern.
     """
     try:
         aggregated_data = []
         for file_path in glob.glob(pattern):
-            with open(file_path, "r", encoding="utf-8") as file:
-                aggregated_data.extend(json.load(file))
+            async with aiofiles.open(file_path, "r", encoding="utf-8") as file:
+                data = await file.read()
+                aggregated_data.extend(json.loads(data))
         return aggregated_data
     except Exception as e:
         logging.error("Error loading JSON files: %s", e)
         return []
 
 
-def save_output_in_chunks(file_path, contents, chunk_size=1024):
+async def save_output_in_chunks(file_path, contents):
     """
     Save the given content into a file in chunks.
     """
     try:
-        with open(file_path, "w", encoding="utf-8") as file:
-            for content in contents:
-                file.write(content)
-                if len(content) > chunk_size:
-                    file.flush()
+        async with aiofiles.open(file_path, "a", encoding="utf-8") as file:
+            await file.write(content)
+            await file.flush()
+            logging.info("Flushed file content: %s", file_path)
     except Exception as e:
         logging.error("Error saving output in chunks: %s", e)
 

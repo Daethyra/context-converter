@@ -13,7 +13,8 @@ Functions:
 
 
 import logging
-from concurrent.futures import ThreadPoolExecutor
+from typing import List
+import asyncio
 from typing import List
 from converter import HTMLToMarkdownConverter
 from formatter import DatasetFormatter
@@ -32,41 +33,36 @@ def process_dataset_chunk(chunk):
         return ""
 
 
-def main():
+async def main(pattern: str = "output*.json", 
+         chunk_size: int = 512, 
+         max_threads: int = 15, 
+         output_file_name: str = "gpt-crawler-curated_markdown.md") -> None:
     """
     Main function to load, process, and save the dataset.
+
+    :param pattern: Pattern to match JSON files.
+    :param chunk_size: Size of chunks to split the dataset into.
+    :param max_threads: Maximum number of threads to use.
+    :param output_file_name: Name of the output file.
     """
     logging.basicConfig(level=logging.INFO)
-    pattern = "output*.json"  # Pattern to match JSON files
-    chunk_size = 512  # Adjust chunk size as needed
-    max_threads = 15  # Adjust the maximum number of threads as needed
-    output_file_name = "gpt-crawler-curated_markdown.md"
 
     try:
-        original_data = load_json_files(pattern)
+        original_data = await load_json_files(pattern)
+        
         chunks = list(chunk_dataset(original_data, chunk_size))
-        formatted_contents = process_and_collect_data(chunks, max_threads)
-        save_output_in_chunks(output_file_name, formatted_contents)
-        logging.info("Conversion process successful. Exiting program.")
+        
+        for chunk in chunks:
+            try:
+                content = await process_dataset_chunk(chunk)
+                await save_output_in_chunks(output_file_name, content)
+                logging.info("Conversion process successful. Exiting program.")
+            except Exception as e:
+                logging.error("An error occurred while processing a chunk: %s", e)
+                # Handle error or save progress here
     except Exception as e:
         logging.error("An error occurred in the main function: %s", e)
 
 
-def process_and_collect_data(chunks: List[Chunk], max_threads: int) -> List[Result]:
-    """
-    Process the data chunks in parallel and collect the results.
-
-    Args:
-        chunks (List[Chunk]): The list of data chunks to be processed.
-        max_threads (int): The maximum number of threads to be used for parallel processing.
-
-    Returns:
-        List[Result]: The list of results obtained from processing each chunk.
-    """
-    logging.info("Processing and saving dataset in chunks.")
-    with ThreadPoolExecutor(max_workers=max_threads) as executor:
-        return [result for result in executor.map(process_dataset_chunk, chunks)]
-
-
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
