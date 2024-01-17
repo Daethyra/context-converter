@@ -8,7 +8,6 @@ The module also includes functions for processing individual chunks of the datas
 Functions:
     process_dataset_chunk(chunk): Processes a single chunk of the dataset.
     main(): Main function to load, process, and save the dataset.
-    process_and_collect_data(chunks, max_threads): Process the data chunks in parallel and collect the results.
 """
 
 
@@ -34,15 +33,13 @@ def process_dataset_chunk(chunk):
 
 
 async def main(pattern: str = "output*.json", 
-         chunk_size: int = 512, 
-         max_threads: int = 15, 
+         chunk_size: int = 512,
          output_file_name: str = "gpt-crawler-curated_markdown.md") -> None:
     """
     Main function to load, process, and save the dataset.
 
     :param pattern: Pattern to match JSON files.
     :param chunk_size: Size of chunks to split the dataset into.
-    :param max_threads: Maximum number of threads to use.
     :param output_file_name: Name of the output file.
     """
     logging.basicConfig(level=logging.INFO)
