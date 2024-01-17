@@ -33,6 +33,7 @@ jobs:
     # Build the package using PDM
     - name: Publish package to PyPI using PDM
       run: pdm update && pdm lock && pdm build -vv
+      working-directory: .
 
     # Publish the package to PyPI
     - name: Publish package distributions to PyPI
