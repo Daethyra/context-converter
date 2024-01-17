@@ -14,9 +14,8 @@ jobs:
       name: production
       url: https://pypi.org/p/conv_html_to_markdown/
     permissions:
-      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+      id-token: write
     steps:
-
     - name: Checkout the repository
       uses: actions/checkout@v3
 
@@ -29,8 +28,14 @@ jobs:
     - name: Install dependencies
       run: pdm install
 
+    - name: Update dependencies
+      run: pdm update -vv
+
+    - name: Lock dependencies
+      run: pdm lock -vv
+
     - name: Build package
-      run: pdm update && pdm lock && pdm build -vv
+      run: pdm build -vv
 
     # Publish the package to PyPI
     - name: Publish package distributions to PyPI
