@@ -23,15 +23,39 @@ async def load_json_files(pattern):
         return []
 
 
-async def save_output_in_chunks(file_path, contents):
+async def save_checkpoint(file_path, chunk_id):
+    """
+    Saves the checkpoint of a given chunk ID to a file.
+
+    Args:
+        file_path (str): The path to the file where the checkpoint will be saved.
+        chunk_id (int): The ID of the chunk to be saved as the checkpoint.
+
+    Returns:
+        None
+    """
+    try:
+        async with aiofiles.open(file_path, "w", encoding="utf-8") as file:
+            await file.write(str(chunk_id))
+            logging.info("Saved checkpoint: %s", chunk_id)
+    except Exception as e:
+        logging.error("Error saving checkpoint: %s", e)
+
+
+async def save_output_in_chunks(file_path, contents, chunk_id):
     """
     Save the given content into a file in chunks.
+    Also logs the chunk id to a separate log file.
     """
     try:
         async with aiofiles.open(file_path, "a", encoding="utf-8") as file:
             await file.write(contents)
             await file.flush()
             logging.info("Flushed file content: %s", file_path)
+
+        # Log the chunk id to a separate log file
+        async with aiofiles.open("progress.log", "a", encoding="utf-8") as log_file:
+            await log_file.write(f"{chunk_id}\n")
     except Exception as e:
         logging.error("Error saving output in chunks: %s", e)
 
