@@ -52,12 +52,12 @@ def main():
         logging.error("An error occurred in the main function: %s", e)
 
 
-def process_and_collect_data(chunks: List[Chunk], max_threads: int) -> List[Result]:
+def process_and_collect_data(chunks: List[list], max_threads: int) -> List[list]:
     """
     Process the data chunks in parallel and collect the results.
 
     Args:
-        chunks (List[Chunk]): The list of data chunks to be processed.
+        chunks (List[list]): The list of data chunks to be processed.
         max_threads (int): The maximum number of threads to be used for parallel processing.
 
     Returns:
