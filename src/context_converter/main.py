@@ -34,7 +34,7 @@ def process_dataset_chunk(chunk):
 
 async def main(
     pattern: str = "output*.json",
-    chunk_size: int = 512,
+    chunk_size: int = 256,
     output_file_name: str = "gpt-crawler-curated_markdown.md",
 ) -> None:
     """

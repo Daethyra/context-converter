@@ -41,7 +41,7 @@ class HTMLToMarkdownConverter:
         sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
         return sum_embeddings / sum_mask
 
-    def _process_embeddings(self, lines, batch_size=32):
+    def _process_embeddings(self, lines, batch_size=16):
         """Processes the embeddings for the given lines in batches."""
         batched_embeddings = []
         for i in range(0, len(lines), batch_size):
@@ -68,7 +68,7 @@ class HTMLToMarkdownConverter:
             similarity = torch.cosine_similarity(
                 embeddings[i].unsqueeze(0), embeddings[i - 1].unsqueeze(0)
             )
-            if similarity.item() < 0.86899:  # Threshold for redundancy
+            if similarity.item() < 1.0:  # Threshold for redundancy
                 cleaned_lines.append(lines[i])
         return "\n".join(cleaned_lines)
 
