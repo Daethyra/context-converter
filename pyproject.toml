@@ -1,7 +1,7 @@
 [project]
-name = "conv_html_to_markdown"
-version = "0.1.2"
-description = "Convert HTML to Markdown using Regex, BeautifulSoup4, and filter useless content with Jina Embeddings."
+name = "context-converter"
+version = "0.1.21"
+description = "Convert HTML to Markdown using Regex, BeautifulSoup4, and filter repeating characters with Jina Embeddings and a similarity threshold."
 authors = [
     {name = "Daethyra", email = "109057945+Daethyra@users.noreply.github.com"},
 ]

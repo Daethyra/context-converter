@@ -3,7 +3,7 @@
 ## Purpose
 
 For converting HTML to Markdown and formatting a dataset of HTML content 
-into structured Markdown, with added capabilities of processing text embeddings to identify and remove redundant content.
+into structured Markdown, with added capabilities of processing text embeddings to identify and remove repetitive content.
 
 ## Installation & Setup
 To get started, run:
