@@ -4,6 +4,16 @@ from markdownify import markdownify as md
 from transformers import AutoTokenizer, AutoModel
 import torch
 import logging
+import os
+import sys
+
+# Get the absolute path of the parent directory
+parent_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Add the parent directory to the system path
+sys.path.append(parent_dir)
+
+from conv_html_to_markdown.converter import HTMLToMarkdownConverter
 
 
 class HTMLToMarkdownConverterTest(unittest.TestCase):
@@ -12,8 +22,12 @@ class HTMLToMarkdownConverterTest(unittest.TestCase):
 
     def test_initialize_embedding_model(self):
         tokenizer, model = self.converter._initialize_embedding_model()
-        self.assertIsInstance(tokenizer, AutoTokenizer)
-        self.assertIsInstance(model, AutoModel)
+        # Call a method on each object and assert that it behaves as expected
+        # For example:
+        tokens = tokenizer.encode("Hello world", return_tensors="pt")
+        self.assertIsInstance(tokens, torch.Tensor)
+        outputs = model(tokens)
+        self.assertIsInstance(outputs.last_hidden_state, torch.Tensor)
 
     def test_curate_content(self):
         html = '<html><head></head><body><div class="cookie">Cookie</div></body></html>'

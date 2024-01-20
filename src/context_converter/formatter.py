@@ -7,7 +7,7 @@ Classes:
     DatasetFormatter: A class to format a dataset of HTML entries into structured Markdown. It provides methods to format individual entries, structure the Markdown content, and format entire datasets.
 """
 
-
+import asyncio
 from converter import HTMLToMarkdownConverter
 import logging
 
@@ -31,7 +31,7 @@ class DatasetFormatter:
     def __init__(self, converter):
         self.converter = converter
 
-    def format_entry(self, entry):
+    async def format_entry(self, entry):
         """Format a single entry from the dataset."""
         try:
             title = entry.get("title", "Untitled")
@@ -54,9 +54,12 @@ class DatasetFormatter:
         )  # Remove leading and trailing whitespace/newlines
         return structured_content
 
-    def format_dataset(self, data):
+    async def format_dataset(self, data):
         """
         Formats the entire dataset.
         Formats each entry in the dataset and joins them with newlines.
         """
-        return "\n\n".join(self.format_entry(entry) for entry in data)
+        formatted_entries = await asyncio.gather(
+            *(self.format_entry(entry) for entry in data)
+        )
+        return "\n\n".join(formatted_entries)
