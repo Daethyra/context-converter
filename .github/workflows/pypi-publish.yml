@@ -1,0 +1,33 @@
+# .github/workflows/pypi-publish.yml
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*.*.*"
+
+jobs:
+  pypi-publish:
+    name: Upload release to PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://pypi.org/p/conv_html_to_markdown/
+    permissions:
+      id-token: write
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v3
+
+    - name: Setup PDM for Python
+      uses: pdm-project/setup-pdm@v3
+      with:
+        python-version: "3.10"
+        cache: true
+
+    - name: Build package
+      run: pdm build -vv
+
+    # Publish the package to PyPI
+    - name: Publish package distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@v1.8.11
