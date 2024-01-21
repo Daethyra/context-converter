@@ -22,7 +22,13 @@ from utils import load_json_files, save_output_in_chunks, chunk_dataset
 
 def process_dataset_chunk(chunk):
     """
-    Processes a single chunk of the dataset.
+    Process a dataset chunk using a DatasetFormatter and return the formatted dataset.
+    
+    Args:
+        chunk: The dataset chunk to be processed.
+    
+    Returns:
+        The formatted dataset, or an empty string if an error occurs.
     """
     try:
         formatter = DatasetFormatter(HTMLToMarkdownConverter())

@@ -29,10 +29,28 @@ class DatasetFormatter:
     """
 
     def __init__(self, converter):
+        """
+        Initializes the class with a converter object.
+
+        Parameters:
+            converter: The converter object to be used by the class.
+
+        Returns:
+            None
+        """
         self.converter = converter
 
     async def format_entry(self, entry):
-        """Format a single entry from the dataset."""
+        """
+        Asynchronously formats an entry and returns the structured markdown content.
+
+        Args:
+            self: The object instance
+            entry: The entry to be formatted
+
+        Returns:
+            The structured markdown content of the entry
+        """
         try:
             title = entry.get("title", "Untitled")
             url = entry.get("url", "")
@@ -45,7 +63,14 @@ class DatasetFormatter:
             return ""
 
     def structure_markdown(self, title, url, content):
-        """Structure the Markdown content with headers, lists, etc."""
+        """
+        Generates structured markdown content based on the provided title, URL, and content.
+
+        :param title: The title for the markdown content
+        :param url: The URL for the markdown content, can be empty
+        :param content: The main content for the markdown
+        :return: The structured markdown content
+        """
         structured_content = f"## {title}\n\n"
         if url:
             structured_content += f"[Read More]({url})\n\n"
@@ -56,8 +81,14 @@ class DatasetFormatter:
 
     async def format_dataset(self, data):
         """
-        Formats the entire dataset.
-        Formats each entry in the dataset and joins them with newlines.
+        Asynchronously formats the dataset.
+
+        Args:
+            self: The object instance.
+            data: The dataset to be formatted.
+
+        Returns:
+            str: The formatted dataset as a string.
         """
         formatted_entries = await asyncio.gather(
             *(self.format_entry(entry) for entry in data)

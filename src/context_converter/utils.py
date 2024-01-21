@@ -9,7 +9,13 @@ from formatter import DatasetFormatter
 
 async def load_json_files(pattern):
     """
-    Load data from multiple JSON files matching a pattern.
+    Asynchronously loads JSON files matching the given pattern and aggregates their data.
+
+    Args:
+        pattern (str): The pattern to match JSON files.
+
+    Returns:
+        list: The aggregated data from the JSON files, or an empty list if an error occurs.
     """
     try:
         aggregated_data = []
@@ -25,7 +31,14 @@ async def load_json_files(pattern):
 
 async def save_output_in_chunks(file_path, contents):
     """
-    Save the given content into a file in chunks.
+    Asynchronously saves the given contents to the specified file path in chunks.
+
+    Args:
+        file_path (str): The path of the file to save the contents to.
+        contents (str): The contents to be saved to the file.
+
+    Returns:
+        None
     """
     try:
         async with aiofiles.open(file_path, "a", encoding="utf-8") as file:
@@ -38,7 +51,17 @@ async def save_output_in_chunks(file_path, contents):
 
 def chunk_dataset(data, chunk_size):
     """
-    Yields chunks of the dataset for processing.
+    Function to chunk a dataset into smaller parts based on the given chunk size.
+
+    Args:
+        data: The dataset to be chunked.
+        chunk_size: The size of each chunk.
+
+    Yields:
+        The chunks of the dataset based on the chunk size.
+
+    Returns:
+        An empty list if an exception is caught during chunking.
     """
     try:
         for i in range(0, len(data), chunk_size):
@@ -50,7 +73,8 @@ def chunk_dataset(data, chunk_size):
 
 def process_chunk(chunk):
     """
-    Processes a single chunk of the dataset.
+    Process a chunk using a DatasetFormatter and return the formatted dataset.
+    If an exception occurs, log an error and return an empty string.
     """
     try:
         formatter = DatasetFormatter(HTMLToMarkdownConverter())
