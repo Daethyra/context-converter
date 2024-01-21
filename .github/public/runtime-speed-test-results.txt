@@ -1,0 +1,58 @@
+# Runtime speed test results
+
+- similarity threshold: 86899
+- _process_embeddings batch_size: 128
+- main() chunk_size: 2048
+- TIME: 03:11.22
+---
+
+- similarity threshold: 86899
+- _process_embeddings batch_size: 128
+- main() chunk_size: 512
+- TIME: 03:10.43
+---
+
+- similarity threshold: 86899
+- _process_embeddings batch_size: 128
+- main() chunk_size: 512
+- TIME: 03:11.25 (accidentally started the time again, true time was approximately 03:10.)
+---
+
+- similarity threshold: 86899
+- _process_embeddings batch_size: 256
+- main() chunk_size: 4096
+- TIME: 04:38.07
+---
+
+- similarity threshold: 86899
+- _process_embeddings batch_size: 256
+- main() chunk_size: 512
+- TIME: 04:38.59
+---
+
+- similarity threshold: 86899
+- _process_embeddings batch_size: 32
+- main() chunk_size: 512
+- TIME: 01:29.25
+---
+
+- similarity threshold: 86899
+- _process_embeddings batch_size: 16
+- main() chunk_size: 256
+- TIME: 00:58.52
+- LENGTH: 5386
+---
+
+- similarity threshold: 86899
+- _process_embeddings batch_size: 16
+- main() chunk_size: 128
+- TIME: 01:08.05
+- LENGTH: 5287
+---
+
+- similarity threshold: 86899
+- _process_embeddings batch_size: 16
+- main() chunk_size: 256
+- TIME: 01:03.93
+- LENGTH: 10697
+---
