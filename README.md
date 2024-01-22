@@ -21,9 +21,7 @@ This library was built specifically to augment the [context-curator](https://git
 
 1. Installation
 
-* To have access to the package in your local environment, clone the repository using `git`: 
-
-`git clone https://github.com/daethyra/context-converter.git`
+* To have access to the package in your local environment (your working directory), clone the repository using git: `git clone https://github.com/daethyra/context-converter.git`
 
 * To install via pip, run: `pip install context-converter`
 
