@@ -3,7 +3,7 @@ This module serves as the main entry point for the HTML to Markdown conversion p
 
 It contains the main function which loads, processes, and saves the dataset. The processing involves converting HTML content to Markdown and formatting it into a structured form. The dataset is processed in chunks to optimize memory usage and performance.
 
-The module also includes functions for processing individual chunks of the dataset and for processing and collecting data from all chunks in parallel using multithreading.
+The module also includes functions for processing individual chunks of the dataset and for processing and collecting data from all chunks in parallel using asyncio.
 
 Functions:
     process_dataset_chunk(chunk): Processes a single chunk of the dataset.
