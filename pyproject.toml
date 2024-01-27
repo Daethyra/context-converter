@@ -1,15 +1,13 @@
 [project]
 name = "context-converter"
-version = "1.2.0"
-description = "Convert HTML to Markdown using Regex, BeautifulSoup4, and filter repeating characters with Jina Embeddings and a similarity threshold."
+version = "2.0.0"
+description = "Convert HTML to Markdown using Regex and BeautifulSoup4."
 authors = [
     {name = "Daethyra", email = "109057945+Daethyra@users.noreply.github.com"},
 ]
 dependencies = [
     "beautifulsoup4>=4.12.2",
     "markdownify>=0.11.6",
-    "transformers>=4.36.2",
-    "torch>=2.1.2",
     "aiofiles>=23.2.1",
     "asyncio>=3.4.3",
 ]
